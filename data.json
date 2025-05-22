@@ -1,0 +1,1914 @@
+{
+    "_description": {
+        "purpose": "This JSON file provides the data for the Sauce Network Explorer application. It defines a collection of culinary sauces, their properties, ingredients, and relationships (parent/child).",
+        "structure": {
+            "nodes": "An array of objects, where each object represents a sauce. The script.js file also dynamically generates 'ingredient' type nodes from the 'ingredients' array within each sauce node.",
+            "sauce_object_properties": {
+                "id": "(String, required) A unique identifier for the sauce (e.g., 'bechamel'). Used for linking.",
+                "name": "(String, required) The display name of the sauce (e.g., 'Béchamel').",
+                "type": "(String, fixed: 'sauce') Indicates the node type. Ingredient nodes will have type 'ingredient'.",
+                "country": "(String, optional) A two-letter country code (e.g., 'FR' for France) representing the origin. Used for flag display.",
+                "description": "(String, optional) A brief description of the sauce.",
+                "wikipedia": "(String, optional) The full URL to the sauce's Wikipedia page. Used for linking and fetching images.",
+                "ingredients": "(Array of Strings, optional) A list of ingredient names. If an ingredient name matches the 'name' of another sauce object, it's treated as a base sauce component. Otherwise, it's treated as a basic ingredient. Spelling and capitalization should be consistent for accurate filtering and node generation.",
+                "isMotherSauce": "(Boolean, optional) Set to true if this sauce is considered a 'mother sauce' (e.g., Béchamel, Velouté).",
+                "parent": "(String, optional) The 'id' of the parent sauce if this sauce is a derivative. (e.g., 'mornay' has 'bechamel' as parent).",
+                "relationshipToParent": "(String, optional) Describes how this sauce is derived from its parent (e.g., 'Cheese addition to base sauce')."
+            }
+        },
+        "editing_guide": {
+            "adding_new_sauce": "1. Create a new object within the 'nodes' array. 2. Assign a unique 'id'. 3. Provide 'name', 'type': 'sauce'. 4. Fill in optional fields like 'country', 'description', 'wikipedia'. 5. List 'ingredients' as an array of strings. Ensure ingredient names are consistent. If an ingredient is another sauce, use its exact 'name'. 6. If it's a mother sauce, set 'isMotherSauce': true. 7. If it's a derivative, specify its 'parent' (using the parent's 'id') and 'relationshipToParent'.",
+            "ingredients_notes": "The application dynamically creates 'ingredient' nodes for visualization based on the strings in the 'ingredients' arrays. If an ingredient string matches the 'name' of an existing sauce node, it's treated as a link to that sauce. Otherwise, a new ingredient node is created. Consistency in naming is key."
+        },
+        "notes_for_ai": "When asked to modify this file, please ensure that: 1. JSON syntax remains valid. 2. All 'id' fields are unique across sauce nodes. 3. Parent relationships are defined by the 'parent' field in the child sauce. 4. Ingredient names are used consistently to allow for proper grouping and filtering in the application. If adding a new sauce that is an ingredient in another, use its 'name' in the ingredients list of the other sauce."
+    },
+    "nodes": [
+        {
+            "id": "bechamel",
+            "name": "Béchamel",
+            "type": "sauce",
+            "country": "FR",
+            "description": "One of the five French mother sauces, made from white roux and milk.",
+            "wikipedia": "https://en.wikipedia.org/wiki/B%C3%A9chamel_sauce",
+            "ingredients": [
+                "Butter",
+                "Flour",
+                "Milk",
+                "Salt",
+                "Black Pepper",
+                "Nutmeg"
+            ],
+            "isMotherSauce": true
+        },
+        {
+            "id": "mornay",
+            "name": "Mornay",
+            "type": "sauce",
+            "country": "FR",
+            "description": "A cheese sauce derivative of béchamel sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mornay_sauce",
+            "ingredients": [
+                "Béchamel",
+                "Gruyère Cheese",
+                "Parmesan Cheese"
+            ],
+            "parent": "bechamel",
+            "relationshipToParent": "Cheese addition to base sauce"
+        },
+        {
+            "id": "soubise",
+            "name": "Soubise",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Béchamel with pureed onions.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Soubise_sauce",
+            "ingredients": [
+                "Béchamel",
+                "Onions",
+                "Butter"
+            ],
+            "parent": "bechamel",
+            "relationshipToParent": "Onion addition to base sauce"
+        },
+        {
+            "id": "veloute",
+            "name": "Velouté",
+            "type": "sauce",
+            "country": "FR",
+            "description": "One of the five French mother sauces, made from white stock and roux.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Velout%C3%A9_sauce",
+            "ingredients": [
+                "Butter",
+                "Flour",
+                "Chicken Stock"
+            ],
+            "isMotherSauce": true
+        },
+        {
+            "id": "allemande",
+            "name": "Allemande",
+            "type": "sauce",
+            "country": "FR",
+            "description": "A velouté sauce thickened with egg yolks and cream.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Allemande_sauce",
+            "ingredients": [
+                "Velouté",
+                "Egg Yolks",
+                "Cream",
+                "Lemon Juice"
+            ],
+            "parent": "veloute",
+            "relationshipToParent": "Thickened with egg yolks and cream"
+        },
+        {
+            "id": "espagnole",
+            "name": "Espagnole",
+            "type": "sauce",
+            "country": "FR",
+            "description": "One of the five French mother sauces, a brown sauce made from brown stock, mirepoix, and tomato paste.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Espagnole_sauce",
+            "ingredients": [
+                "Brown Roux",
+                "Beef Stock",
+                "Mirepoix",
+                "Tomato Paste"
+            ],
+            "isMotherSauce": true
+        },
+        {
+            "id": "demiglace",
+            "name": "Demi-Glace",
+            "type": "sauce",
+            "country": "FR",
+            "description": "A rich brown sauce made by reducing espagnole sauce with brown stock.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Demi-glace",
+            "ingredients": [
+                "Espagnole",
+                "Beef Stock"
+            ],
+            "parent": "espagnole",
+            "relationshipToParent": "Reduced with more beef stock"
+        },
+        {
+            "id": "bordelaise",
+            "name": "Bordelaise",
+            "type": "sauce",
+            "country": "FR",
+            "description": "A classic French sauce made with dry red wine, bone marrow, and shallots.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Bordelaise_sauce",
+            "ingredients": [
+                "Demi-Glace",
+                "Red Wine",
+                "Bone Marrow",
+                "Shallots"
+            ],
+            "parent": "demiglace",
+            "relationshipToParent": "Wine and aromatics added to base sauce"
+        },
+        {
+            "id": "hollandaise",
+            "name": "Hollandaise",
+            "type": "sauce",
+            "country": "FR",
+            "description": "One of the five French mother sauces, an emulsion of egg yolk and butter.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Hollandaise_sauce",
+            "ingredients": [
+                "Egg Yolks",
+                "Butter",
+                "Lemon Juice"
+            ],
+            "isMotherSauce": true
+        },
+        {
+            "id": "bearnaise",
+            "name": "Béarnaise",
+            "type": "sauce",
+            "country": "FR",
+            "description": "A sauce made of clarified butter emulsified in egg yolks and white wine vinegar and flavored with herbs.",
+            "wikipedia": "https://en.wikipedia.org/wiki/B%C3%A9arnaise_sauce",
+            "ingredients": [
+                "Hollandaise",
+                "Tarragon",
+                "Shallots",
+                "White Wine Vinegar"
+            ],
+            "parent": "hollandaise",
+            "relationshipToParent": "Flavored with tarragon and vinegar"
+        },
+        {
+            "id": "tomato",
+            "name": "Tomato Sauce",
+            "type": "sauce",
+            "country": "IT",
+            "description": "One of the five French mother sauces, based on tomatoes.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Tomato_sauce",
+            "ingredients": [
+                "Tomatoes",
+                "Garlic",
+                "Onions",
+                "Herbs"
+            ],
+            "isMotherSauce": true
+        },
+        {
+            "id": "marinara",
+            "name": "Marinara",
+            "type": "sauce",
+            "country": "IT",
+            "description": "A simple tomato sauce with garlic, herbs, and onions.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Marinara_sauce",
+            "ingredients": [
+                "Tomato Sauce",
+                "Garlic",
+                "Oregano",
+                "Olive Oil"
+            ],
+            "parent": "tomato",
+            "relationshipToParent": "Italian-style variation with oregano"
+        },
+        {
+            "id": "pesto",
+            "name": "Pesto",
+            "type": "sauce",
+            "country": "IT",
+            "description": "A sauce originating in Genoa, Italy, traditionally consisting of crushed garlic, pine nuts, basil, Parmesan cheese, and olive oil.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Pesto",
+            "ingredients": [
+                "Basil",
+                "Garlic",
+                "Pine Nuts",
+                "Parmesan Cheese",
+                "Olive Oil"
+            ]
+        },
+        {
+            "id": "salsa_verde",
+            "name": "Salsa Verde (Italian)",
+            "type": "sauce",
+            "country": "IT",
+            "description": "A green sauce made with parsley, capers, anchovies, onion, garlic, and olive oil.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Salsa_verde",
+            "ingredients": [
+                "Parsley",
+                "Capers",
+                "Anchovies",
+                "Garlic",
+                "Olive Oil"
+            ]
+        },
+        {
+            "id": "salsa_verde_mx",
+            "name": "Salsa Verde (Mexican)",
+            "type": "sauce",
+            "country": "MX",
+            "description": "A Mexican green sauce made with tomatillos, jalapeños, and cilantro.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Salsa_verde",
+            "ingredients": [
+                "Tomatillos",
+                "Jalapeños",
+                "Cilantro",
+                "Onions"
+            ]
+        },
+        {
+            "id": "soy",
+            "name": "Soy Sauce",
+            "type": "sauce",
+            "country": "CN",
+            "description": "A liquid condiment of Chinese origin, made from a fermented paste of soybeans, roasted grain, brine, and molds.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Soy_sauce",
+            "ingredients": [
+                "Soybeans",
+                "Wheat",
+                "Salt"
+            ]
+        },
+        {
+            "id": "teriyaki",
+            "name": "Teriyaki",
+            "type": "sauce",
+            "country": "JP",
+            "description": "A Japanese sauce made with soy sauce, mirin, and sugar.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Teriyaki",
+            "ingredients": [
+                "Soy Sauce",
+                "Mirin",
+                "Sugar"
+            ],
+            "parent": "soy",
+            "relationshipToParent": "Sweetened with mirin and sugar"
+        },
+        {
+            "id": "romesco",
+            "name": "Romesco",
+            "type": "sauce",
+            "country": "ES",
+            "description": "A nut and red pepper-based sauce from Tarragona, Catalonia, Spain.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Romesco",
+            "ingredients": [
+                "Red Peppers",
+                "Almonds",
+                "Olive Oil",
+                "Garlic"
+            ]
+        },
+        {
+            "id": "xo",
+            "name": "XO Sauce",
+            "type": "sauce",
+            "country": "HK",
+            "description": "A spicy seafood sauce from Hong Kong with dried scallops, dried shrimp, Jinhua ham, and chili peppers.",
+            "wikipedia": "https://en.wikipedia.org/wiki/XO_sauce",
+            "ingredients": [
+                "Dried Scallops",
+                "Dried Shrimp",
+                "Ham",
+                "Chili Peppers"
+            ]
+        },
+        {
+            "id": "gochujang",
+            "name": "Gochujang",
+            "type": "sauce",
+            "country": "KR",
+            "description": "A savory, sweet, and spicy fermented condiment from Korea.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Gochujang",
+            "ingredients": [
+                "Red Chili Powder",
+                "Glutinous Rice",
+                "Fermented Soybeans",
+                "Salt"
+            ]
+        },
+        {
+            "id": "aioli",
+            "name": "Aioli",
+            "type": "sauce",
+            "country": "ES",
+            "description": "West Mediterranean sauce of garlic and oil.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Aioli",
+            "ingredients": [
+                "Garlic",
+                "Olive Oil",
+                "Egg Yolks",
+                "Lemon Juice"
+            ]
+        },
+        {
+            "id": "alfredo",
+            "name": "Alfredo",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Creamy pasta sauce with butter and cheese.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Fettuccine_Alfredo",
+            "ingredients": [
+                "Butter",
+                "Parmesan Cheese",
+                "Cream",
+                "Black Pepper"
+            ]
+        },
+        {
+            "id": "arrabbiata",
+            "name": "Arrabbiata",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Italian pasta sauce with tomatoes, red chili peppers, garlic, and olive oil.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Arrabbiata_sauce",
+            "ingredients": [
+                "Tomato Sauce",
+                "Red Chili Peppers",
+                "Garlic",
+                "Olive Oil"
+            ],
+            "parent": "tomato",
+            "relationshipToParent": "Spicy variation with chili peppers"
+        },
+        {
+            "id": "barbecue",
+            "name": "Barbecue Sauce",
+            "type": "sauce",
+            "country": "US",
+            "description": "Sauce used as a marinade, basting, topping, or condiment.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Barbecue_sauce",
+            "ingredients": [
+                "Tomato Paste",
+                "Vinegar",
+                "Brown Sugar",
+                "Molasses",
+                "Spices"
+            ]
+        },
+        {
+            "id": "beurre_blanc",
+            "name": "Beurre Blanc",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Emulsified butter sauce with white wine and shallots.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Beurre_blanc",
+            "ingredients": [
+                "Butter",
+                "White Wine",
+                "Shallots",
+                "White Wine Vinegar"
+            ]
+        },
+        {
+            "id": "bolognese",
+            "name": "Bolognese",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Main variety of ragù in Italian cuisine, meat-based tomato sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Bolognese_sauce",
+            "ingredients": [
+                "Ground Beef",
+                "Tomato Sauce",
+                "Onions",
+                "Carrots",
+                "Celery",
+                "Red Wine"
+            ],
+            "parent": "tomato",
+            "relationshipToParent": "Meat-based variation"
+        },
+        {
+            "id": "carbonara",
+            "name": "Carbonara",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Italian pasta sauce with eggs, cheese, pancetta, and black pepper.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Carbonara",
+            "ingredients": [
+                "Eggs",
+                "Pecorino Romano Cheese",
+                "Pancetta",
+                "Black Pepper"
+            ]
+        },
+        {
+            "id": "chimichurri",
+            "name": "Chimichurri",
+            "type": "sauce",
+            "country": "AR",
+            "description": "Green, uncooked sauce for meat from Argentina.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Chimichurri",
+            "ingredients": [
+                "Parsley",
+                "Cilantro",
+                "Garlic",
+                "Red Wine Vinegar",
+                "Olive Oil",
+                "Red Pepper Flakes"
+            ]
+        },
+        {
+            "id": "cocktail",
+            "name": "Cocktail Sauce",
+            "type": "sauce",
+            "country": "US",
+            "description": "Condiment served usually with seafoods.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Cocktail_sauce",
+            "ingredients": [
+                "Ketchup",
+                "Horseradish",
+                "Lemon Juice",
+                "Worcestershire Sauce"
+            ],
+            "parent": "ketchup",
+            "relationshipToParent": "Enhanced with horseradish and seasonings"
+        },
+        {
+            "id": "duck_sauce",
+            "name": "Duck Sauce",
+            "type": "sauce",
+            "country": "US",
+            "description": "American Chinese condiment with a translucent orange appearance.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Duck_sauce",
+            "ingredients": [
+                "Apricots",
+                "Plums",
+                "Sugar",
+                "Vinegar"
+            ]
+        },
+        {
+            "id": "fish_sauce",
+            "name": "Fish Sauce",
+            "type": "sauce",
+            "country": "VN",
+            "description": "Condiment made from fish fermented in salt.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Fish_sauce",
+            "ingredients": [
+                "Fish",
+                "Salt"
+            ]
+        },
+        {
+            "id": "garum",
+            "name": "Garum",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Historical fermented fish sauce from ancient Rome.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Garum",
+            "ingredients": [
+                "Fish",
+                "Salt",
+                "Herbs"
+            ]
+        },
+        {
+            "id": "guacamole",
+            "name": "Guacamole",
+            "type": "sauce",
+            "country": "MX",
+            "description": "Mexican avocado-based dip, spread, sauce, or salad.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Guacamole",
+            "ingredients": [
+                "Avocados",
+                "Lime Juice",
+                "Onions",
+                "Tomatoes",
+                "Cilantro",
+                "Jalapeños"
+            ]
+        },
+        {
+            "id": "harissa",
+            "name": "Harissa",
+            "type": "sauce",
+            "country": "TN",
+            "description": "North African hot chili pepper paste.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Harissa",
+            "ingredients": [
+                "Red Chili Peppers",
+                "Garlic",
+                "Caraway",
+                "Coriander",
+                "Cumin",
+                "Olive Oil"
+            ]
+        },
+        {
+            "id": "hoisin",
+            "name": "Hoisin Sauce",
+            "type": "sauce",
+            "country": "CN",
+            "description": "Sauce commonly used in Chinese cuisine, sweet and savory.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Hoisin_sauce",
+            "ingredients": [
+                "Soybeans",
+                "Sugar",
+                "Vinegar",
+                "Garlic",
+                "Chili Peppers"
+            ],
+            "parent": "soy",
+            "relationshipToParent": "Sweetened and spiced variation"
+        },
+        {
+            "id": "ketchup",
+            "name": "Ketchup",
+            "type": "sauce",
+            "country": "US",
+            "description": "Sauce used as a condiment, typically made from tomatoes.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Ketchup",
+            "ingredients": [
+                "Tomatoes",
+                "Vinegar",
+                "Sugar",
+                "Salt",
+                "Spices"
+            ]
+        },
+        {
+            "id": "mayonnaise",
+            "name": "Mayonnaise",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Thick cold sauce made from egg yolks and oil.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mayonnaise",
+            "ingredients": [
+                "Egg Yolks",
+                "Oil",
+                "Lemon Juice",
+                "Mustard"
+            ]
+        },
+        {
+            "id": "mole",
+            "name": "Mole",
+            "type": "sauce",
+            "country": "MX",
+            "description": "Mexican sauce and marinade with complex spice blend.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mole_sauce",
+            "ingredients": [
+                "Chili Peppers",
+                "Chocolate",
+                "Nuts",
+                "Seeds",
+                "Spices",
+                "Tomatoes"
+            ]
+        },
+        {
+            "id": "mustard",
+            "name": "Mustard",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Condiment made from mustard seeds.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mustard_(condiment)",
+            "ingredients": [
+                "Mustard Seeds",
+                "Water",
+                "Vinegar",
+                "Salt"
+            ]
+        },
+        {
+            "id": "nuoc_cham",
+            "name": "Nước Chấm",
+            "type": "sauce",
+            "country": "VN",
+            "description": "Vietnamese dipping sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc_ch%E1%BA%A5m",
+            "ingredients": [
+                "Fish Sauce",
+                "Water",
+                "Sugar",
+                "Lime Juice",
+                "Chili Peppers",
+                "Garlic"
+            ],
+            "parent": "fish_sauce",
+            "relationshipToParent": "Vietnamese variation with lime and sugar"
+        },
+        {
+            "id": "oyster_sauce",
+            "name": "Oyster Sauce",
+            "type": "sauce",
+            "country": "CN",
+            "description": "Condiment made by cooking oysters.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Oyster_sauce",
+            "ingredients": [
+                "Oysters",
+                "Soy Sauce",
+                "Sugar",
+                "Cornstarch"
+            ],
+            "parent": "soy",
+            "relationshipToParent": "Oyster-enhanced variation"
+        },
+        {
+            "id": "peanut_sauce",
+            "name": "Peanut Sauce",
+            "type": "sauce",
+            "country": "ID",
+            "description": "Indonesian sauce made from ground roasted or fried peanuts.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Peanut_sauce",
+            "ingredients": [
+                "Peanuts",
+                "Chili Peppers",
+                "Garlic",
+                "Palm Sugar",
+                "Tamarind"
+            ]
+        },
+        {
+            "id": "pico_de_gallo",
+            "name": "Pico de Gallo",
+            "type": "sauce",
+            "country": "MX",
+            "description": "Mexican condiment made with fresh ingredients.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Pico_de_gallo",
+            "ingredients": [
+                "Tomatoes",
+                "Onions",
+                "Cilantro",
+                "Jalapeños",
+                "Lime Juice"
+            ]
+        },
+        {
+            "id": "ponzu",
+            "name": "Ponzu",
+            "type": "sauce",
+            "country": "JP",
+            "description": "Japanese citrus-based condiment.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Ponzu",
+            "ingredients": [
+                "Soy Sauce",
+                "Citrus Juice",
+                "Rice Vinegar",
+                "Mirin"
+            ],
+            "parent": "soy",
+            "relationshipToParent": "Citrus-enhanced variation"
+        },
+        {
+            "id": "ranch",
+            "name": "Ranch Dressing",
+            "type": "sauce",
+            "country": "US",
+            "description": "American salad dressing made with mayonnaise, buttermilk, and herbs.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Ranch_dressing",
+            "ingredients": [
+                "Mayonnaise",
+                "Buttermilk",
+                "Garlic",
+                "Onion",
+                "Herbs",
+                "Spices"
+            ],
+            "parent": "mayonnaise",
+            "relationshipToParent": "Herb and buttermilk variation"
+        },
+        {
+            "id": "remoulade",
+            "name": "Rémoulade",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Mayonnaise-based cold sauce with herbs and pickles.",
+            "wikipedia": "https://en.wikipedia.org/wiki/R%C3%A9moulade",
+            "ingredients": [
+                "Mayonnaise",
+                "Capers",
+                "Pickles",
+                "Herbs",
+                "Mustard"
+            ],
+            "parent": "mayonnaise",
+            "relationshipToParent": "Enhanced with capers and herbs"
+        },
+        {
+            "id": "salsa_roja",
+            "name": "Salsa Roja",
+            "type": "sauce",
+            "country": "MX",
+            "description": "Red salsa made with tomatoes and chili peppers.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Salsa_(sauce)",
+            "ingredients": [
+                "Tomatoes",
+                "Chili Peppers",
+                "Onions",
+                "Garlic",
+                "Cilantro"
+            ]
+        },
+        {
+            "id": "sambal",
+            "name": "Sambal",
+            "type": "sauce",
+            "country": "ID",
+            "description": "Indonesian spicy relish or sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sambal",
+            "ingredients": [
+                "Chili Peppers",
+                "Salt",
+                "Sugar",
+                "Tomatoes",
+                "Shallots"
+            ]
+        },
+        {
+            "id": "sriracha",
+            "name": "Sriracha",
+            "type": "sauce",
+            "country": "TH",
+            "description": "Thai hot sauce made with chili peppers.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sriracha_sauce",
+            "ingredients": [
+                "Red Chili Peppers",
+                "Vinegar",
+                "Garlic",
+                "Sugar",
+                "Salt"
+            ],
+            "parent": "hot-sauce",
+            "relationshipToParent": "Thai variation with distilled vinegar and pickled garlic"
+        },
+        {
+            "id": "hot-sauce",
+            "name": "Hot Sauce",
+            "type": "sauce",
+            "country": "US",
+            "description": "Basic American-style hot sauce",
+            "wikipedia": "https://en.wikipedia.org/wiki/Hot_sauce",
+            "ingredients": [
+                "Cayenne Peppers",
+                "Vinegar",
+                "Salt"
+            ]
+        },
+        {
+            "id": "sweet_and_sour",
+            "name": "Sweet and Sour Sauce",
+            "type": "sauce",
+            "country": "CN",
+            "description": "Chinese sauce balancing sweet and acidic flavors.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sweet_and_sour",
+            "ingredients": [
+                "Sugar",
+                "Vinegar",
+                "Ketchup",
+                "Soy Sauce",
+                "Pineapple Juice"
+            ],
+            "parent": "soy",
+            "relationshipToParent": "Sweet and tangy variation"
+        },
+        {
+            "id": "tabasco",
+            "name": "Tabasco",
+            "type": "sauce",
+            "country": "US",
+            "description": "American hot sauce brand made with tabasco peppers.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Tabasco_sauce",
+            "ingredients": [
+                "Tabasco Peppers",
+                "Vinegar",
+                "Salt"
+            ],
+            "parent": "hot-sauce",
+            "relationshipToParent": "American variation with Tobasco peppers"
+        },
+        {
+            "id": "tahini",
+            "name": "Tahini",
+            "type": "sauce",
+            "country": "LB",
+            "description": "Middle Eastern sauce made from sesame seeds.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Tahini",
+            "ingredients": [
+                "Sesame Seeds"
+            ]
+        },
+        {
+            "id": "tartare",
+            "name": "Tartare Sauce",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Mayonnaise-based cold sauce with pickles and capers.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Tartar_sauce",
+            "ingredients": [
+                "Mayonnaise",
+                "Pickles",
+                "Capers",
+                "Onions",
+                "Lemon Juice"
+            ],
+            "parent": "mayonnaise",
+            "relationshipToParent": "Enhanced with pickles and capers"
+        },
+        {
+            "id": "tzatziki",
+            "name": "Tzatziki",
+            "type": "sauce",
+            "country": "GR",
+            "description": "Cold cucumber–yogurt dip, soup, or sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Tzatziki",
+            "ingredients": [
+                "Greek Yogurt",
+                "Cucumber",
+                "Garlic",
+                "Olive Oil",
+                "Dill",
+                "Lemon Juice"
+            ]
+        },
+        {
+            "id": "vinaigrette",
+            "name": "Vinaigrette",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Sauce made from oil and vinegar and commonly used as a salad dressing.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Vinaigrette",
+            "ingredients": [
+                "Olive Oil",
+                "Vinegar",
+                "Mustard",
+                "Salt",
+                "Black Pepper"
+            ]
+        },
+        {
+            "id": "worcestershire",
+            "name": "Worcestershire Sauce",
+            "type": "sauce",
+            "country": "GB",
+            "description": "English fermented condiment with complex umami flavor.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Worcestershire_sauce",
+            "ingredients": [
+                "Vinegar",
+                "Molasses",
+                "Anchovies",
+                "Tamarind",
+                "Onions",
+                "Garlic"
+            ]
+        },
+        {
+            "id": "amatriciana",
+            "name": "Amatriciana",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Italian pasta sauce with tomatoes, guanciale, and pecorino cheese.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Amatriciana_sauce",
+            "ingredients": [
+                "Tomato Sauce",
+                "Guanciale",
+                "Pecorino Romano Cheese",
+                "Red Pepper Flakes"
+            ],
+            "parent": "tomato",
+            "relationshipToParent": "Meat and cheese enhanced variation"
+        },
+        {
+            "id": "chermoula",
+            "name": "Chermoula",
+            "type": "sauce",
+            "country": "MA",
+            "description": "Relish from Maghrebi cuisine with herbs and spices.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Chermoula",
+            "ingredients": [
+                "Cilantro",
+                "Parsley",
+                "Garlic",
+                "Cumin",
+                "Coriander",
+                "Olive Oil",
+                "Lemon Juice"
+            ]
+        },
+        {
+            "id": "mirin",
+            "name": "Mirin",
+            "type": "sauce",
+            "country": "JP",
+            "description": "Type of rice wine used in Japanese cuisine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mirin",
+            "ingredients": [
+                "Rice",
+                "Rice Koji",
+                "Shochu"
+            ]
+        },
+        {
+            "id": "muhammara",
+            "name": "Muhammara",
+            "type": "sauce",
+            "country": "SY",
+            "description": "Red pepper dip from Levantine cuisine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Muhammara",
+            "ingredients": [
+                "Red Peppers",
+                "Walnuts",
+                "Breadcrumbs",
+                "Olive Oil",
+                "Pomegranate Molasses"
+            ]
+        },
+        {
+            "id": "nam_phrik",
+            "name": "Nam Phrik",
+            "type": "sauce",
+            "country": "TH",
+            "description": "Thai chili sauce with various regional variations.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Nam_phrik",
+            "ingredients": [
+                "Chili Peppers",
+                "Garlic",
+                "Shallots",
+                "Fish Sauce",
+                "Lime Juice"
+            ],
+            "parent": "fish_sauce",
+            "relationshipToParent": "Spicy Thai variation with chili and aromatics"
+        },
+        {
+            "id": "pebre",
+            "name": "Pebre",
+            "type": "sauce",
+            "country": "CL",
+            "description": "Chilean condiment similar to salsa verde.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Pebre",
+            "ingredients": [
+                "Cilantro",
+                "Parsley",
+                "Garlic",
+                "Onions",
+                "Ají Peppers",
+                "Olive Oil"
+            ]
+        },
+        {
+            "id": "puttanesca",
+            "name": "Puttanesca",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Italian pasta sauce with tomatoes, olives, capers, and anchovies.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Pasta_puttanesca",
+            "ingredients": [
+                "Tomato Sauce",
+                "Olives",
+                "Capers",
+                "Anchovies",
+                "Garlic",
+                "Red Pepper Flakes"
+            ],
+            "parent": "tomato",
+            "relationshipToParent": "Enhanced with olives, capers, and anchovies"
+        },
+        {
+            "id": "skordalia",
+            "name": "Skordalia",
+            "type": "sauce",
+            "country": "GR",
+            "description": "Thick garlic sauce in Greek cuisine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Skordalia",
+            "ingredients": [
+                "Garlic",
+                "Potatoes",
+                "Olive Oil",
+                "Vinegar",
+                "Almonds"
+            ]
+        },
+        {
+            "id": "supreme",
+            "name": "Suprême",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Classic French sauce made from velouté with cream.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Supr%C3%AAme_sauce",
+            "ingredients": [
+                "Velouté",
+                "Heavy Cream",
+                "Butter"
+            ],
+            "parent": "veloute",
+            "relationshipToParent": "Enriched with cream and butter"
+        },
+        {
+            "id": "tkemali",
+            "name": "Tkemali",
+            "type": "sauce",
+            "country": "GE",
+            "description": "Georgian plum sauce with herbs and spices.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Tkemali",
+            "ingredients": [
+                "Sour Plums",
+                "Garlic",
+                "Cilantro",
+                "Dill",
+                "Coriander",
+                "Red Pepper Flakes"
+            ]
+        },
+        {
+            "id": "toum",
+            "name": "Toum",
+            "type": "sauce",
+            "country": "LB",
+            "description": "Garlic sauce common in the Levant.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Toum",
+            "ingredients": [
+                "Garlic",
+                "Oil",
+                "Lemon Juice",
+                "Salt"
+            ]
+        },
+        {
+            "id": "bercy",
+            "name": "Bercy",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French sauce with shallots, butter and white wine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sauce_bercy",
+            "ingredients": [
+                "Shallots",
+                "Butter",
+                "White Wine",
+                "Fish Stock"
+            ]
+        },
+        {
+            "id": "chasseur",
+            "name": "Chasseur",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French hunter's sauce with mushrooms and wine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Chasseur_sauce",
+            "ingredients": [
+                "Mushrooms",
+                "Butter",
+                "Shallots",
+                "Red Wine",
+                "Demi-Glace"
+            ],
+            "parent": "demiglace",
+            "relationshipToParent": "Enhanced with mushrooms and wine"
+        },
+        {
+            "id": "gribiche",
+            "name": "Gribiche",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French sauce similar to tartar sauce with hard-boiled eggs.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sauce_gribiche",
+            "ingredients": [
+                "Mayonnaise",
+                "Hard-boiled Eggs",
+                "Capers",
+                "Pickles",
+                "Herbs"
+            ],
+            "parent": "mayonnaise",
+            "relationshipToParent": "Enhanced with hard-boiled eggs"
+        },
+        {
+            "id": "lyonnaise",
+            "name": "Lyonnaise",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French sauce with fried onions and wine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Lyonnaise_sauce",
+            "ingredients": [
+                "Onions",
+                "White Wine",
+                "Vinegar",
+                "Demi-Glace"
+            ],
+            "parent": "demiglace",
+            "relationshipToParent": "Onion-enhanced variation"
+        },
+        {
+            "id": "ravigote",
+            "name": "Ravigote",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Classic, lightly acidic sauce in French cuisine with herbs.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Ravigote_sauce",
+            "ingredients": [
+                "White Wine",
+                "Vinegar",
+                "Velouté",
+                "Shallots",
+                "Herbs"
+            ],
+            "parent": "veloute",
+            "relationshipToParent": "Herb and vinegar enhanced"
+        },
+        {
+            "id": "robert",
+            "name": "Robert",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French brown mustard sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sauce_Robert",
+            "ingredients": [
+                "Onions",
+                "Butter",
+                "White Wine",
+                "Vinegar",
+                "Demi-Glace",
+                "Mustard"
+            ],
+            "parent": "demiglace",
+            "relationshipToParent": "Mustard-enhanced variation"
+        },
+        {
+            "id": "rouille",
+            "name": "Rouille",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Garlic, pimento and chilli pepper sauce, traditionally served with fish soup.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Rouille",
+            "ingredients": [
+                "Red Peppers",
+                "Garlic",
+                "Breadcrumbs",
+                "Olive Oil",
+                "Saffron"
+            ]
+        },
+        {
+            "id": "ajika",
+            "name": "Ajika",
+            "type": "sauce",
+            "country": "GE",
+            "description": "Georgian and Abkhazian spicy dip.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Ajika",
+            "ingredients": [
+                "Red Chili Peppers",
+                "Garlic",
+                "Coriander",
+                "Fenugreek",
+                "Salt"
+            ]
+        },
+        {
+            "id": "cumberland",
+            "name": "Cumberland Sauce",
+            "type": "sauce",
+            "country": "GB",
+            "description": "Redcurrant-based condiment from England.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Cumberland_sauce",
+            "ingredients": [
+                "Redcurrant Jelly",
+                "Port Wine",
+                "Orange Zest",
+                "Lemon Juice",
+                "Mustard"
+            ]
+        },
+        {
+            "id": "mint_sauce",
+            "name": "Mint Sauce",
+            "type": "sauce",
+            "country": "GB",
+            "description": "Sauce made of chopped mint, traditionally served with lamb.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mint_sauce",
+            "ingredients": [
+                "Fresh Mint",
+                "Vinegar",
+                "Sugar",
+                "Salt"
+            ]
+        },
+        {
+            "id": "bread_sauce",
+            "name": "Bread Sauce",
+            "type": "sauce",
+            "country": "GB",
+            "description": "British sauce made with milk and bread crumbs.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Bread_sauce",
+            "ingredients": [
+                "Milk",
+                "Breadcrumbs",
+                "Onion",
+                "Cloves",
+                "Bay Leaves",
+                "Butter"
+            ]
+        },
+        {
+            "id": "apple_sauce",
+            "name": "Apple Sauce",
+            "type": "sauce",
+            "country": "GB",
+            "description": "Purée made from apples, commonly served with pork.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Apple_sauce",
+            "ingredients": [
+                "Apples",
+                "Sugar",
+                "Cinnamon",
+                "Lemon Juice"
+            ]
+        },
+        {
+            "id": "cranberry_sauce",
+            "name": "Cranberry Sauce",
+            "type": "sauce",
+            "country": "US",
+            "description": "Sauce made from cranberries, traditionally served with turkey.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Cranberry_sauce",
+            "ingredients": [
+                "Cranberries",
+                "Sugar",
+                "Water",
+                "Orange Zest"
+            ]
+        },
+        {
+            "id": "buffalo",
+            "name": "Buffalo Sauce",
+            "type": "sauce",
+            "country": "US",
+            "description": "American spicy sauce for chicken wings.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Buffalo_sauce",
+            "ingredients": [
+                "Hot Sauce",
+                "Butter",
+                "Vinegar",
+                "Garlic Powder"
+            ],
+            "parent": "hot-sauce",
+            "relationshipToParent": "American variation with butter and vinegar"
+        },
+        {
+            "id": "chili_sauce",
+            "name": "Sweet Chili Sauce",
+            "type": "sauce",
+            "country": "TH",
+            "description": "Condiment primarily used as a dip, sweet and spicy.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sweet_chili_sauce",
+            "ingredients": [
+                "Red Chili Peppers",
+                "Sugar",
+                "Vinegar",
+                "Garlic",
+                "Fish Sauce"
+            ],
+            "parent": "fish_sauce",
+            "relationshipToParent": "Sweet and spicy Thai variation"
+        },
+        {
+            "id": "satsebeli",
+            "name": "Satsebeli",
+            "type": "sauce",
+            "country": "GE",
+            "description": "Georgian sauce with tomatoes and spices.",
+            "ingredients": [
+                "Tomatoes",
+                "Garlic",
+                "Coriander",
+                "Cinnamon",
+                "Cloves",
+                "Red Pepper Flakes"
+            ]
+        },
+        {
+            "id": "cheese_sauce",
+            "name": "Cheese Sauce",
+            "type": "sauce",
+            "country": "US",
+            "description": "Sauce made with cheese, commonly used for nachos and vegetables.",
+            "ingredients": [
+                "Cheese",
+                "Milk",
+                "Butter",
+                "Flour"
+            ]
+        },
+        {
+            "id": "gravy",
+            "name": "Gravy",
+            "type": "sauce",
+            "country": "GB",
+            "description": "Sauce made from the juices of meats.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Gravy",
+            "ingredients": [
+                "Meat Drippings",
+                "Flour",
+                "Stock",
+                "Salt",
+                "Black Pepper"
+            ]
+        },
+        {
+            "id": "brown_sauce",
+            "name": "Brown Sauce",
+            "type": "sauce",
+            "country": "GB",
+            "description": "Condiment served with food in the UK and Ireland.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Brown_sauce",
+            "ingredients": [
+                "Tomatoes",
+                "Molasses",
+                "Dates",
+                "Vinegar",
+                "Tamarind"
+            ]
+        },
+        {
+            "id": "pesto_trapanese",
+            "name": "Pesto alla Trapanese",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Sicilian variety of pesto with tomatoes and almonds.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Pesto_alla_trapanese",
+            "ingredients": [
+                "Basil",
+                "Tomatoes",
+                "Almonds",
+                "Garlic",
+                "Olive Oil",
+                "Pecorino Cheese"
+            ],
+            "parent": "pesto",
+            "relationshipToParent": "Sicilian variation with tomatoes and almonds"
+        },
+        {
+            "id": "avgolemono",
+            "name": "Avgolemono",
+            "type": "sauce",
+            "country": "GR",
+            "description": "Egg-lemon sauce or soup from Greek cuisine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Avgolemono",
+            "ingredients": [
+                "Eggs",
+                "Lemon Juice",
+                "Chicken Broth",
+                "Rice"
+            ]
+        },
+        {
+            "id": "coulis",
+            "name": "Coulis",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Thin sauce made from vegetables or fruits.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Coulis",
+            "ingredients": [
+                "Fruits or Vegetables",
+                "Sugar",
+                "Lemon Juice"
+            ]
+        },
+        {
+            "id": "mignonette",
+            "name": "Mignonette",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Condiment served with oysters.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mignonette_sauce",
+            "ingredients": [
+                "Red Wine Vinegar",
+                "Shallots",
+                "Black Pepper"
+            ]
+        },
+        {
+            "id": "mushroom_ketchup",
+            "name": "Mushroom Ketchup",
+            "type": "sauce",
+            "country": "GB",
+            "description": "Style of ketchup made from mushrooms.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mushroom_ketchup",
+            "ingredients": [
+                "Mushrooms",
+                "Salt",
+                "Spices",
+                "Vinegar"
+            ]
+        },
+        {
+            "id": "normande",
+            "name": "Normande",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Creamy sauce that accompanies seafood.",
+            "ingredients": [
+                "Fish Stock",
+                "Cream",
+                "Egg Yolks",
+                "Butter"
+            ]
+        },
+        {
+            "id": "peppercorn_sauce",
+            "name": "Peppercorn Sauce",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Culinary cream sauce with peppercorns.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Peppercorn_sauce",
+            "ingredients": [
+                "Green Peppercorns",
+                "Cream",
+                "Brandy",
+                "Stock"
+            ]
+        },
+        {
+            "id": "andalouse",
+            "name": "Andalouse",
+            "type": "sauce",
+            "country": "BE",
+            "description": "Belgian sauce made from mayonnaise, tomatoes and peppers.",
+            "ingredients": [
+                "Mayonnaise",
+                "Tomato Paste",
+                "Red Peppers",
+                "Spices"
+            ],
+            "parent": "mayonnaise",
+            "relationshipToParent": "Belgian variation with tomatoes and peppers"
+        },
+        {
+            "id": "aurore",
+            "name": "Aurore",
+            "type": "sauce",
+            "country": "FR",
+            "description": "A velouté sauce flavored with tomato.",
+            "ingredients": [
+                "Velouté",
+                "Tomato Paste",
+                "Butter"
+            ],
+            "parent": "veloute",
+            "relationshipToParent": "Tomato-enhanced variation"
+        },
+        {
+            "id": "poulette",
+            "name": "Poulette",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French sauce prepared using mushrooms and lemon.",
+            "ingredients": [
+                "Velouté",
+                "Mushrooms",
+                "Lemon Juice",
+                "Egg Yolks"
+            ],
+            "parent": "veloute",
+            "relationshipToParent": "Mushroom and lemon enhanced"
+        },
+        {
+            "id": "charcutiere",
+            "name": "Charcutière",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Compound French sauce, Robert sauce garnished with gherkins.",
+            "ingredients": [
+                "Robert",
+                "Gherkins",
+                "Mustard"
+            ],
+            "parent": "robert",
+            "relationshipToParent": "Enhanced with pickled gherkins"
+        },
+        {
+            "id": "bourguignonne",
+            "name": "Bourguignonne",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French sauce with shallots, herbs and mushrooms in red wine.",
+            "ingredients": [
+                "Red Wine",
+                "Shallots",
+                "Mushrooms",
+                "Herbs",
+                "Beef Stock"
+            ]
+        },
+        {
+            "id": "beurre_noisette",
+            "name": "Beurre Noisette",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Brown butter sauce with lemon juice.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Beurre_noisette",
+            "ingredients": [
+                "Butter",
+                "Lemon Juice"
+            ]
+        },
+        {
+            "id": "meuniere",
+            "name": "Meunière",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French brown butter, parsley, and lemon sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Meuni%C3%A8re_sauce",
+            "ingredients": [
+                "Butter",
+                "Parsley",
+                "Lemon Juice"
+            ]
+        },
+        {
+            "id": "bagna_cauda",
+            "name": "Bagna Càuda",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Piedmontese hot dish with garlic and anchovies.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Bagna_c%C3%A0uda",
+            "ingredients": [
+                "Garlic",
+                "Anchovies",
+                "Olive Oil",
+                "Butter"
+            ]
+        },
+        {
+            "id": "gremolata",
+            "name": "Gremolata",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Condiment for ossobuco made with lemon zest, garlic, and parsley.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Gremolata",
+            "ingredients": [
+                "Lemon Zest",
+                "Garlic",
+                "Parsley"
+            ]
+        },
+        {
+            "id": "persillade",
+            "name": "Persillade",
+            "type": "sauce",
+            "country": "FR",
+            "description": "Sauce or seasoning mix with parsley and garlic.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Persillade",
+            "ingredients": [
+                "Parsley",
+                "Garlic",
+                "Olive Oil"
+            ]
+        },
+        {
+            "id": "sauce_vierge",
+            "name": "Sauce Vierge",
+            "type": "sauce",
+            "country": "FR",
+            "description": "French sauce with tomatoes, herbs, and olive oil.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Sauce_vierge",
+            "ingredients": [
+                "Tomatoes",
+                "Olive Oil",
+                "Basil",
+                "Lemon Juice",
+                "Garlic"
+            ]
+        },
+        {
+            "id": "mujdei",
+            "name": "Mujdei",
+            "type": "sauce",
+            "country": "RO",
+            "description": "Spicy Romanian sauce made mostly from garlic and vegetable oil.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mujdei",
+            "ingredients": [
+                "Garlic",
+                "Vegetable Oil",
+                "Salt",
+                "Vinegar"
+            ]
+        },
+        {
+            "id": "agliata",
+            "name": "Agliata",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Savory and pungent garlic sauce and condiment in Italian cuisine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Agliata",
+            "ingredients": [
+                "Garlic",
+                "Breadcrumbs",
+                "Vinegar",
+                "Olive Oil"
+            ]
+        },
+        {
+            "id": "genovese_sauce",
+            "name": "Genovese",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Meat-based Italian pasta sauce with lots of onions.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Genovese_sauce",
+            "ingredients": [
+                "Beef",
+                "Onions",
+                "Carrots",
+                "Celery",
+                "White Wine"
+            ]
+        },
+        {
+            "id": "ragu",
+            "name": "Ragù",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Meat-based sauce in Italian cuisine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Rag%C3%B9",
+            "ingredients": [
+                "Ground Meat",
+                "Tomatoes",
+                "Onions",
+                "Carrots",
+                "Celery"
+            ]
+        },
+        {
+            "id": "neapolitan_ragu",
+            "name": "Neapolitan Ragù",
+            "type": "sauce",
+            "country": "IT",
+            "description": "Variety of ragù from Naples.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Neapolitan_rag%C3%B9",
+            "ingredients": [
+                "Ragù",
+                "Beef",
+                "Pork",
+                "Tomatoes",
+                "Red Wine",
+                "Onions"
+            ],
+            "parent": "ragu",
+            "relationshipToParent": "Neapolitan regional variation"
+        },
+        {
+            "id": "doubanjiang",
+            "name": "Doubanjiang",
+            "type": "sauce",
+            "country": "CN",
+            "description": "Chinese spicy bean paste.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Doubanjiang",
+            "ingredients": [
+                "Fermented Broad Beans",
+                "Chili Peppers",
+                "Salt",
+                "Wheat Flour"
+            ]
+        },
+        {
+            "id": "doenjang",
+            "name": "Doenjang",
+            "type": "sauce",
+            "country": "KR",
+            "description": "Korean fermented bean paste.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Doenjang",
+            "ingredients": [
+                "Fermented Soybeans",
+                "Salt"
+            ]
+        },
+        {
+            "id": "mala_sauce",
+            "name": "Mala Sauce",
+            "type": "sauce",
+            "country": "CN",
+            "description": "Spicy Chinese seasoning.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Mala_(seasoning)",
+            "ingredients": [
+                "Sichuan Peppercorns",
+                "Chili Peppers",
+                "Oil",
+                "Garlic"
+            ]
+        },
+        {
+            "id": "plum_sauce",
+            "name": "Plum Sauce",
+            "type": "sauce",
+            "country": "CN",
+            "description": "Chinese condiment made from plums.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Plum_sauce",
+            "ingredients": [
+                "Plums",
+                "Sugar",
+                "Vinegar",
+                "Ginger"
+            ]
+        },
+        {
+            "id": "ssamjang",
+            "name": "Ssamjang",
+            "type": "sauce",
+            "country": "KR",
+            "description": "Spicy soybean paste used in Korean cuisine.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Ssamjang",
+            "ingredients": [
+                "Doenjang",
+                "Gochujang",
+                "Garlic",
+                "Scallions"
+            ],
+            "parent": "doenjang",
+            "relationshipToParent": "Spicy variation mixed with gochujang"
+        },
+        {
+            "id": "tentsuyu",
+            "name": "Tentsuyu",
+            "type": "sauce",
+            "country": "JP",
+            "description": "Tempura dipping sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Tentsuyu",
+            "ingredients": [
+                "Dashi",
+                "Soy Sauce",
+                "Mirin",
+                "Sugar"
+            ],
+            "parent": "soy",
+            "relationshipToParent": "Japanese dipping sauce variation"
+        },
+        {
+            "id": "umeboshi_paste",
+            "name": "Umeboshi Paste",
+            "type": "sauce",
+            "country": "JP",
+            "description": "Sour, pickled Japanese fruit sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Umeboshi",
+            "ingredients": [
+                "Pickled Plums",
+                "Salt",
+                "Shiso Leaves"
+            ]
+        },
+        {
+            "id": "shacha_sauce",
+            "name": "Shacha Sauce",
+            "type": "sauce",
+            "country": "CN",
+            "description": "Chinese condiment used as a base for soups and stir-fries.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Shacha_sauce",
+            "ingredients": [
+                "Dried Shrimp",
+                "Dried Fish",
+                "Peanuts",
+                "Sesame",
+                "Chili Peppers"
+            ]
+        },
+        {
+            "id": "budu",
+            "name": "Budu",
+            "type": "sauce",
+            "country": "MY",
+            "description": "Fish sauce originating from east coast of Peninsular Malaysia.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Budu",
+            "ingredients": [
+                "Anchovies",
+                "Salt",
+                "Water"
+            ],
+            "parent": "fish_sauce",
+            "relationshipToParent": "Malaysian regional variation"
+        },
+        {
+            "id": "nam_chim",
+            "name": "Nam Chim",
+            "type": "sauce",
+            "country": "TH",
+            "description": "Thai sauce, general term for dipping sauces.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Nam_chim",
+            "ingredients": [
+                "Fish Sauce",
+                "Lime Juice",
+                "Chili Peppers",
+                "Sugar"
+            ],
+            "parent": "fish_sauce",
+            "relationshipToParent": "Thai dipping sauce variation"
+        },
+        {
+            "id": "padaek",
+            "name": "Padaek",
+            "type": "sauce",
+            "country": "LA",
+            "description": "Traditional Lao condiment made from pickled or fermented fish.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Padaek",
+            "ingredients": [
+                "Fermented Fish",
+                "Salt",
+                "Rice Bran"
+            ],
+            "parent": "fish_sauce",
+            "relationshipToParent": "Lao fermented variation"
+        },
+        {
+            "id": "salsa_golf",
+            "name": "Salsa Golf",
+            "type": "sauce",
+            "country": "AR",
+            "description": "Cold sauce of mayonnaise and tomatoes from Argentina.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Salsa_golf",
+            "ingredients": [
+                "Mayonnaise",
+                "Ketchup",
+                "Cognac",
+                "Worcestershire Sauce"
+            ],
+            "parent": "mayonnaise",
+            "relationshipToParent": "Argentine variation with ketchup"
+        },
+        {
+            "id": "llajwa",
+            "name": "Llajwa",
+            "type": "sauce",
+            "country": "BO",
+            "description": "Bolivian chili sauce.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Llajwa",
+            "ingredients": [
+                "Tomatoes",
+                "Locoto Peppers",
+                "Quirquiña",
+                "Salt"
+            ]
+        },
+        {
+            "id": "jerk_sauce",
+            "name": "Jerk Sauce",
+            "type": "sauce",
+            "country": "JM",
+            "description": "Style of cooking native to Jamaica, spicy marinade.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Jerk_(cooking)",
+            "ingredients": [
+                "Scotch Bonnet Peppers",
+                "Allspice",
+                "Thyme",
+                "Garlic",
+                "Ginger"
+            ]
+        },
+        {
+            "id": "banana_ketchup",
+            "name": "Banana Ketchup",
+            "type": "sauce",
+            "country": "PH",
+            "description": "Filipino sauce made from bananas.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Banana_ketchup",
+            "ingredients": [
+                "Bananas",
+                "Sugar",
+                "Vinegar",
+                "Spices",
+                "Red Coloring"
+            ]
+        },
+        {
+            "id": "bagoong",
+            "name": "Bagoong",
+            "type": "sauce",
+            "country": "PH",
+            "description": "Type of Philippine condiment made from fermented fish or shrimp.",
+            "wikipedia": "https://en.wikipedia.org/wiki/Bagoong",
+            "ingredients": [
+                "Fermented Fish or Shrimp",
+                "Salt"
+            ]
+        }
+    ]
+}

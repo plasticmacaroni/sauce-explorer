@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sauce Network Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- D3.js from CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Sauce Network Explorer</h1>
+        <div class="controls">
+            <button id="reset-view">Reset View</button>
+            <label>
+                <input type="checkbox" id="show-ingredients"> Show Ingredients
+            </label>
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search sauces...">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="graph-container"></div>
+        <div id="info-panel">
+            <h2>Sauce Information</h2>
+            <div id="sauce-details">
+                <p>Select a sauce to see details</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Sauce Network Explorer - Click on nodes to explore relationships</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
